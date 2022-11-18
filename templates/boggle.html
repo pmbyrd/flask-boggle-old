@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+<h1>BOGGLE</h1>
+
+{% block content %}
+<div class="container">
+    <div class="timer">
+        <p>
+            Your time remaining: <span class="timer"></span>
+        </p>
+    </div>
+    <table id="board">
+        {% for row in board %}
+        <tr>
+            {% for char in row %}
+            <td>
+                {{char}}
+            </td>
+            {% endfor %} 
+        </tr>
+            {%endfor%}
+    </table>
+        <form action="/guess" method="POST">
+            <label for="guess">
+                <input type="text" name="guess" id="guess-input" placeholder="Enter your word here">
+                <button>Submit</button>
+            </label>
+        </form>
+    <ul class="word-bank">
+        
+    </ul>
+</div>
+
+
+
+{% endblock %}
