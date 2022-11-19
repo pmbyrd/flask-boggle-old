@@ -1,35 +1,51 @@
-{% extends "base.html" %}
-<h1>BOGGLE</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styles-boggle.css">
+    <title>Boggle</title>
+</head>
+<body>
+    <div id="boggle-container">
+        <div class="timer">
+            <p>
+                Your time remaining: <span class="timer"></span>
+            </p>
+        </div>
+        <table class="boggle-board">
+            <tbody>
+                {% for row in board %}
+                <tr>
+                    {% for char in row %}
+                    <td>
+                        {{char}}
+                    </td>
+                    {% endfor %} 
+                </tr>
+                    {%endfor%}
+            </tbody>
+        </table>
+            <form method="POST" class="guess-word-form">
+                <label for="guess">
+                    <input type="text" class="guess-word" name="guess" id="guess-input" placeholder="Enter your word here">
+                    <button>Submit</button>
+                </label>
+            </form>
+        <p class="msg">
 
-{% block content %}
-<div class="container">
-    <div class="timer">
-        <p>
-            Your time remaining: <span class="timer"></span>
         </p>
+        <ul class="word-bank">
+            
+        </ul>
     </div>
-    <table id="board">
-        {% for row in board %}
-        <tr>
-            {% for char in row %}
-            <td>
-                {{char}}
-            </td>
-            {% endfor %} 
-        </tr>
-            {%endfor%}
-    </table>
-        <form action="/guess" method="POST">
-            <label for="guess">
-                <input type="text" name="guess" id="guess-input" placeholder="Enter your word here">
-                <button>Submit</button>
-            </label>
-        </form>
-    <ul class="word-bank">
-        
-    </ul>
-</div>
-
-
-
-{% endblock %}
+    
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="/static/boggle.js"></script>   
+        <!-- <script>
+            let game = new BoggleGame("boggle", 60)
+        </script>  -->
+</body>
+</html>
