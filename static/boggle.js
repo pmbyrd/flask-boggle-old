@@ -29,10 +29,21 @@ class BoggleGame{
 
     //show score 
     // get the score el for this.board and the set the text
+    showScore() {
+        $(".display-score", this.board)
+        .text(this.score)
+    }
 
     // show message
     //get the message from the el for this.board 
     // and handle the cls{jinja flash display}
+    showMessage(msg, cls) {
+        $(".flash-msg", this.board)
+        .text(msg)
+        .removeClass()
+        .addClass(`msg ${cls}`)
+    }
+
 
     // show time
     // get the timer el for this.board and set the text
@@ -50,16 +61,19 @@ class BoggleGame{
         const $word = $(".guess-word", this.board)
         //intialize my word value from the input
         let word = $word.val()
-        //set conditional logical logic for messages
-        // if(!word) return //early exit if it doesn't meet conditions
-        
+        //set conditional logic for messages
+        if(!word) return //early exit if it doesn't meet conditions
+        // set conditional logic for if word is already in bank
+        if(this.words.has(word)) {
+            this.showMessage(`${word} already found`, "error")
+        }
 
-        //check the word validitly the guess to existence on the board
+        //get the response from the board to use the guess route to check word
         const response = await axios.get("/guess", { params: {
             word: word
         }})
         console.log(response)
-        // set logic of valid word
+        // set logic of valid word from response.data.result
 
        
 

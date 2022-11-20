@@ -28,7 +28,7 @@ def show_board():
     
     session[BOGGLE_BOARD] = board
     
-  
+    
     #update later with all necessary templates, timer and score
     return render_template("boggle.html", board=board)
 
@@ -41,13 +41,10 @@ def handles_boggle_game():
 
     #check the board and the word received for validity
     response = boggle_game.check_valid_word(board, word)
-    import pdb
-    pdb.set_trace()
-
-    # do not respond with redirects, the reponses are jso
+  
+    # do not respond with redirects, the reponses are json
     return jsonify({"result": response})
-    # if response == word:
-    #     return redirect("/")
+    # return redirect("/", response=response)
  
 
 
