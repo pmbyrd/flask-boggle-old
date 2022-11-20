@@ -9,9 +9,14 @@
 </head>
 <body>
     <div id="boggle-container">
-        <div class="timer">
+        <div class="div-timer">
             <p>
-                Your time remaining: <span class="timer"></span>
+                Your time remaining: <span class="display-timer"></span>
+            </p>
+        </div>
+        <div class="div-score">
+            <p>
+                Your Score: <span class="display-score"></span>
             </p>
         </div>
         <table class="boggle-board">
@@ -40,12 +45,14 @@
             
         </ul>
     </div>
-    
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="/static/boggle.js"></script>   
-        <!-- <script>
-            let game = new BoggleGame("boggle", 60)
-        </script>  -->
+
+
+    <script src="http://unpkg.com/jquery"></script>
+    <script src="https://unpkg.com/axios@0.19.0/dist/axios.js"></script>
+    <script src="/static/boggle.js"></script>
+    <script>
+      let boggleGame = new BoggleGame("boggle", 60);
+    </script>
+ 
 </body>
 </html>

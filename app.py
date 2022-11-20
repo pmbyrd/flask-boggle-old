@@ -28,28 +28,32 @@ def show_board():
     
     session[BOGGLE_BOARD] = board
     
-
-    print(BOGGLE_BOARD)
-    print(board)
+  
+    #update later with all necessary templates, timer and score
     return render_template("boggle.html", board=board)
 
 @app.route('/guess')
 def handles_boggle_game():
-    """Displays users words and redirects them to their board"""
+    """Checks if the user word is valid and responses with the appropiate message"""
+    
     word = request.args["guess"]
     board = session[BOGGLE_BOARD]
+
     #check the board and the word received for validity
     response = boggle_game.check_valid_word(board, word)
     import pdb
     pdb.set_trace()
-    print(word, board)
-    # return jsonify({"result": response})
-    return redirect("/")
+
+    # do not respond with redirects, the reponses are jso
+    return jsonify({"result": response})
+    # if response == word:
+    #     return redirect("/")
+ 
 
 
-@app.route('/scores', methods=["POST"])
-def get_word():
-    """Gets the user word and checks if it is valid
+@app.route('/post-score', methods=["POST"])
+def post_scores():
+    """Handles scores and updates results as appropiate
     
      """
     return redirect("/")
