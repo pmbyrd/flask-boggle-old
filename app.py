@@ -32,20 +32,19 @@ def show_board():
     #update later with all necessary templates, timer and score
     return render_template("boggle.html", board=board)
 
-@app.route('/guess')
+@app.route('/guess', methods=["POST"])
 def handles_boggle_game():
     """Checks if the user word is valid and responses with the appropiate message"""
     
-    word = request.args["guess"]
+    word = request.form["guess"]
     board = session[BOGGLE_BOARD]
 
     #check the board and the word received for validity
     response = boggle_game.check_valid_word(board, word)
   
-    # do not respond with redirects, the reponses are json
+    # # do not respond with redirects, the reponses are json
     return jsonify({"result": response})
-    # return redirect("/", response=response)
- 
+  
 
 
 @app.route('/post-score', methods=["POST"])
