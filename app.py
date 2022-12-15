@@ -1,7 +1,7 @@
 #import necessary methods and set up configs
 from flask import Flask, request, render_template, redirect, flash, session, jsonify
 
-from flask_debugtoolbar import DebugToolbarExtension
+# from flask_debugtoolbar import DebugToolbarExtension
 
 from boggle import Boggle 
 
@@ -12,47 +12,53 @@ app.config['TESTING'] = True
 app.config['DEBUG_TB_HOSTS'] = ['dont-show-debug-toolbar']
 app.debug = True
 
-toolbar = DebugToolbarExtension(app)
+
 boggle_game = Boggle()
 #intialize the variable for the session storage and responses
-SESSION_RESP = "correct_words"
-BOGGLE_BOARD = "board"
+
 #intialize the board to a global variable so that it does not reload on every refresh
-board = boggle_game.make_board()
-correct_words = []
 
 
 @app.route('/')
 def show_board():
     """Creates the board and displays it to the page"""
+    board = boggle_game.make_board()
+    session["board"] = board
     
-    session[BOGGLE_BOARD] = board
+#     #TODO update later with all necessary templates, timer and score
     
     
-    #update later with all necessary templates, timer and score
     return render_template("boggle.html", board=board)
 
-@app.route('/guess', methods=["POST"])
-def handles_boggle_game():
-    """Checks if the user word is valid and responses with the appropiate message"""
+# todo make route for handling words
+# *this is where the frontend is checking against
+@app.route('/guess')
+def handle_boggle_game():
+    """Checks the user word against the boggle board in the session
     
-    word = request.form["guess"]
-    board = session[BOGGLE_BOARD]
-
-    #check the board and the word received for validity
+    Utilizes the class boggle and it's methods and sends the response back to the front end
+    """
+    # Todo get values from the form and check if valid
+    word = request.args["word"]
+    board = session["board"]
+    
     response = boggle_game.check_valid_word(board, word)
-  
-    # # do not respond with redirects, the reponses are json
-    return jsonify({"result": response})
-  
-
-
-@app.route('/post-score', methods=["POST"])
-def post_scores():
-    """Handles scores and updates results as appropiate
     
-     """
-    return redirect("/")
+    # Todo return json as formatted by the boggle.py and return the response
+    return jsonify({"result": response})
+
+# Todo add post route for results
+
+   
+  
+
+
+# @app.route('/post-score', methods=["POST"])
+# def post_scores():
+#     """Handles scores and updates results as appropiate
+    
+#      """
+#     return redirect("/")
 
 
 

@@ -1,14 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/styles-boggle.css">
-    <title>Boggle</title>
-</head>
-<body>
-    <div id="boggle-container">
+{% extends "base.html"%}
+
+{%block content%}
+
+    <div class="boggle container">
+        <div class="timer mb-3">
+            <p>
+                Your time remaining: <span class="timer-display"></span>
+            </p>
+        </div>
+        <div class="score">
+            <p>
+                Your Score: <span class="score-display"></span>
+            </p>
+        </div>
+        <table class="boggle-board table table-sm">
+            <tbody>
+                {% for row in board%}
+                <tr class="col">
+                    {% for char in row%}
+                    <td class="col rounded-5 border border border-5 text-white bg-dark text-center --bs-gap: .25rem 1rem">
+                        {{char}}
+                    </td>
+                    {%endfor%}
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+        <!-- **the page does got go anywhere, I want to stay on this page "actions" will be handled on the backend -->
+        <form class="guess" method="post">
+            <div class="mb-3">
+                <input name="word" class="word form-control form-control-lg" type="text" placeholder="Submit a word" aria-label=".form-control-lg example">
+            </div>
+            <button class="btn btn-success">Submit</button>
+        </form>
+     </div>
+     <p class="msg">
+        <!-- *for flash messages* -->
+     </p>
+     <ul class="word-list">
+            <!-- *for word list*  -->
+     </ul>
+
+     <script>
+        let boggleGame = new BoggleGame("boggle", 60);
+      </script>
+
+     
+{%endblock%}
+
+
+    <!-- <div id="boggle-container">
         <div class="div-timer">
             <p>
                 Your time remaining: <span class="display-timer"></span>
@@ -32,7 +73,7 @@
                     {%endfor%}
             </tbody>
         </table>
-            <form method="POST" class="guess-word-form">
+            <form method="POST" action="/guess" class="guess-word-form">
                 <label for="guess">
                     <input type="text" class="guess-word" name="guess" id="guess-input" placeholder="Enter your word here">
                     <button>Submit</button>
@@ -55,4 +96,4 @@
     </script>
  
 </body>
-</html>
+</html> -->
