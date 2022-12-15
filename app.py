@@ -32,18 +32,19 @@ def show_board():
 
 # todo make route for handling words
 # *this is where the frontend is checking against
-@app.route('/guess')
+@app.route('/guess-word', methods=["GET", "POST"])
 def handle_boggle_game():
     """Checks the user word against the boggle board in the session
     
     Utilizes the class boggle and it's methods and sends the response back to the front end
     """
     # Todo get values from the form and check if valid
-    word = request.args["word"]
+    word = request.form["word"]
     board = session["board"]
-    
+    print(word)
     response = boggle_game.check_valid_word(board, word)
-    
+    print(response)
+    raise
     # Todo return json as formatted by the boggle.py and return the response
     return jsonify({"result": response})
 

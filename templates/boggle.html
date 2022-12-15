@@ -27,7 +27,7 @@
             </tbody>
         </table>
         <!-- **the page does got go anywhere, I want to stay on this page "actions" will be handled on the backend -->
-        <form class="guess" method="post">
+        <form action="/" class="guess" method="post">
             <div class="mb-3">
                 <input name="word" class="word form-control form-control-lg" type="text" placeholder="Submit a word" aria-label=".form-control-lg example">
             </div>
@@ -41,59 +41,7 @@
             <!-- *for word list*  -->
      </ul>
 
-     <script>
-        let boggleGame = new BoggleGame("boggle", 60);
-      </script>
+     
 
      
 {%endblock%}
-
-
-    <!-- <div id="boggle-container">
-        <div class="div-timer">
-            <p>
-                Your time remaining: <span class="display-timer"></span>
-            </p>
-        </div>
-        <div class="div-score">
-            <p>
-                Your Score: <span class="display-score"></span>
-            </p>
-        </div>
-        <table class="boggle-board">
-            <tbody>
-                {% for row in board %}
-                <tr>
-                    {% for char in row %}
-                    <td>
-                        {{char}}
-                    </td>
-                    {% endfor %} 
-                </tr>
-                    {%endfor%}
-            </tbody>
-        </table>
-            <form method="POST" action="/guess" class="guess-word-form">
-                <label for="guess">
-                    <input type="text" class="guess-word" name="guess" id="guess-input" placeholder="Enter your word here">
-                    <button>Submit</button>
-                </label>
-            </form>
-        <p class="msg">
-
-        </p>
-        <ul class="word-bank">
-            
-        </ul>
-    </div>
-
-
-    <script src="http://unpkg.com/jquery"></script>
-    <script src="https://unpkg.com/axios@0.19.0/dist/axios.js"></script>
-    <script src="/static/boggle.js"></script>
-    <script>
-      let boggleGame = new BoggleGame("boggle", 60);
-    </script>
- 
-</body>
-</html> -->

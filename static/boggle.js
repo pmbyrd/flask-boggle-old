@@ -9,45 +9,84 @@ class BoggleGame{
     // ** the board will hold the elements needed to create and handle game logic each game
     constructor(boggleBoard, time = 60) {
         this.time = time
-        this.board = $(boggle-board)
-        this.words = new set()
+        this.board = $("boggle-board")
+        this.words = new Set()
         this.score = 0
-        this.timer = setInterval(this.countdown.bind(this), 1000)
+        // this.timer = setInterval(this.countdown.bind(this), 1000)
     }
 
     // Todo displayWord()
-
-
-
+    dispayWord(word) {
+        $ul = $("word-list", this.board)
+        $li = $("<li>", {text: word})
+        $ul.append($li)
+    }
     // Todo displayScore()
-
+    displayScore() {
+        $score = $(".score", this.board)
+        $score.text(this.score)
+    }
 
     // Todo displayMessage(msg, cls)
-
+    displayMessage(msg, cls) {
+        $(".flash-msg", this.board)
+        .text(msg)
+        .removeClass()
+        .addClass(`msg ${cls}`)
+    }
 
     // Todo async handleForm(evt)
-    
-    // ** prevent default, get values from the board
-    // **use check words 
-    // **if word is valid add to the score and display the word
-    // **if word is not valid display message
-    // **if word is already found display message
-    // **if word is not found on the board display message
-    // **if word is not found in the dictionary display message
-    
-
-    // Todo displayTimer()
+    async handleForm(evt) {
+        evt.preventDefault();
+            const $word = $(".word", this.board)
+            let word = $word.val()
+            // Todo set conditional logic for messages 
+            if(!word) return
+            if(this.words.has(word)) {
+                this.displayMessage("Word already found", "error")
+            }
 
 
-    // **make request to the server, check if it needs to be a get or a post
+            const response = await axios.get("/guess-word", {params : {word:word}})
+            // *once the response is received handle the conditional logic
+            // *if word is not valid display to appropriate elements
+            console.log(response)
+            if(response.data.result === "not-word") {
+                this.displayMessage(`${word} is not found in the dictionary`)
+            } else if (resp.data.result === "not-on-board") {
+                this.displayMessage(`${word} is not found on the board`)
+            } else {
+                // *if word is valid display to appropriate elements
+                this.dispayWord(word)
+                this.score += word.length
+                this.displayScore()
+                this.words.add(word)
+                this.displayMessage(`Added: ${word}`, "ok")
+            }
 
-    // **once request handle if/else conditional logic
+
+    }
+
     // Todo displayTimer() get by class from the board
+    displayTimer() {
+        $timer = $(".timer", this.board)
+        $timer.text(this.time)
+    }
 
-    // Todo async countdown() sumtract a second
+    // Todo async countdown() subtract a second
+    // *when 0 game over
+    countdown() {
+        this.time -= 1
+        this.displayTimer()
+        if(this.time === 0) {
+            this.gameOver()
+        }
+        
+    }
     // **  get time 
 
 }
+
 // class BoggleGame{
 //     //pass the elements needed to create and handle game logic each game
 //     constructor(boggleBoard, time = 60) {
